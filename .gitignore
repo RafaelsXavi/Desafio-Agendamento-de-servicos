@@ -40,11 +40,8 @@ Thumbs.db
 # Environment files
 backend/.env
 frontend/.env
-
-# Test files
-backend/test-connection.js
-backend/test-simulado.js
-backend/test-complete.js
+backend/.env.production
+frontend/.env.production
 
 # IDE
 .vscode/

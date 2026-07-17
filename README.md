@@ -198,7 +198,9 @@ agendamento-servicos/
 ## 🔗 Links Importantes
 
 - **Repositório GitHub**: https://github.com/RafaelsXavi/Desafio-Agendamento-de-servicos
-- **Produção**: https://agendamento-servicos.vercel.app (a ser configurado)
+- **Instruções de Deploy**: [DEPLOY_INSTRUCTIONS.md](./DEPLOY_INSTRUCTIONS.md)
+- **Guia de Monitoramento**: [MONITORAMENTO.md](./MONITORAMENTO.md)
+- **Relatório de Testes**: [RELATORIO_TESTES.md](./RELATORIO_TESTES.md)
 
 ## 📋 Funcionalidades
 
@@ -266,6 +268,22 @@ agendamento-servicos/
 
 #### Desafio 4: Responsividade
 **Solução**: Uso de CSS Grid e Flexbox com media queries para garantir experiência consistente em todos os dispositivos.
+
+## 🚀 Deploy em Produção
+
+O sistema está configurado para deploy gratuito usando **Vercel (frontend)** e **Render (backend)** com sistema de keep-alive para garantir disponibilidade 24/7.
+
+### Estratégia de Deploy
+- **Frontend (Vercel)**: React com Vite - sempre online, sem spin-down
+- **Backend (Render)**: Node.js + Express - com keep-alive automático
+- **Banco de Dados**: MongoDB Atlas (já configurado)
+- **Monitoramento**: UptimeRobot gratuito + health checks
+
+### Instruções Completas
+Para instruções detalhadas de deploy, consulte [DEPLOY_INSTRUCTIONS.md](./DEPLOY_INSTRUCTIONS.md)
+
+### Sistema de Monitoramento
+O sistema inclui monitoramento automático para garantir funcionamento durante o processo seletivo. Consulte [MONITORAMENTO.md](./MONITORAMENTO.md) para detalhes.
 
 ## 🧪 Testes
 

@@ -3,6 +3,7 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const connectDB = require('./config/database');
 const Admin = require('./models/Admin');
+const keepAlive = require('./utils/keepAlive');
 
 // Load env vars
 dotenv.config();
@@ -37,10 +38,23 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/appointments', require('./routes/appointments'));
 app.use('/api/auth', require('./routes/auth'));
 
+// Health check endpoint for Render monitoring
+app.get('/health', (req, res) => {
+  res.status(200).json({
+    status: 'ok',
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime()
+  });
+});
+
 const PORT = process.env.PORT || 5000;
 
 // Start server and create admin
 app.listen(PORT, async () => {
   console.log(`Server running on port ${PORT}`);
   await createDefaultAdmin();
+  
+  // Iniciar keep-alive para evitar spin-down no Render
+  keepAlive();
+  console.log('Keep-alive service started');
 });
