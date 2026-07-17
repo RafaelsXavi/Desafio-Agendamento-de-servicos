@@ -197,7 +197,7 @@ agendamento-servicos/
 
 ## 🔗 Links Importantes
 
-- **Repositório GitHub**: https://github.com/usuario/agendamento-servicos
+- **Repositório GitHub**: https://github.com/RafaelsXavi/Desafio-Agendamento-de-servicos
 - **Produção**: https://agendamento-servicos.vercel.app (a ser configurado)
 
 ## 📋 Funcionalidades
