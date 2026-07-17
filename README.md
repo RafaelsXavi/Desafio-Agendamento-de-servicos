@@ -200,6 +200,7 @@ agendamento-servicos/
 - **Repositório GitHub**: https://github.com/RafaelsXavi/Desafio-Agendamento-de-servicos
 - **Instruções de Deploy**: [DEPLOY_INSTRUCTIONS.md](./DEPLOY_INSTRUCTIONS.md)
 - **Guia de Monitoramento**: [MONITORAMENTO.md](./MONITORAMENTO.md)
+- **Guia de Teste Manual**: [TESTE_MANUAL.md](./TESTE_MANUAL.md)
 - **Relatório de Testes**: [RELATORIO_TESTES.md](./RELATORIO_TESTES.md)
 
 ## 📋 Funcionalidades

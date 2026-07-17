@@ -9,7 +9,7 @@ const keepAlive = require('./utils/keepAlive');
 dotenv.config();
 
 // Connect to database
-connectDB();
+//connectDB();
 
 // Create default admin if not exists
 const createDefaultAdmin = async () => {
