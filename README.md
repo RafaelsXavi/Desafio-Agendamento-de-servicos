@@ -198,6 +198,7 @@ agendamento-servicos/
 ## 🔗 Links Importantes
 
 - **Repositório GitHub**: https://github.com/RafaelsXavi/Desafio-Agendamento-de-servicos
+- **Deploy Frontend Vercel**: [DEPLOY_VERCEL.md](./DEPLOY_VERCEL.md)
 - **Instruções de Deploy**: [DEPLOY_INSTRUCTIONS.md](./DEPLOY_INSTRUCTIONS.md)
 - **Guia de Monitoramento**: [MONITORAMENTO.md](./MONITORAMENTO.md)
 - **Guia de Teste Manual**: [TESTE_MANUAL.md](./TESTE_MANUAL.md)
