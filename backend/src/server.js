@@ -45,6 +45,21 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/appointments', require('./routes/appointments'));
 app.use('/api/auth', require('./routes/auth'));
 
+// Root endpoint
+app.get('/', (req, res) => {
+  res.json({
+    message: 'Sistema de Agendamento de Serviços - API',
+    version: '1.0.0',
+    endpoints: {
+      health: '/health',
+      api: '/api',
+      appointments: '/api/appointments',
+      auth: '/api/auth'
+    },
+    status: 'operational'
+  });
+});
+
 // Health check endpoint for Render monitoring
 app.get('/health', (req, res) => {
   res.status(200).json({
