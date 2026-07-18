@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
+const mongoose = require('mongoose');
 const connectDB = require('./config/database');
 const Admin = require('./models/Admin');
 const keepAlive = require('./utils/keepAlive');
@@ -9,11 +10,17 @@ const keepAlive = require('./utils/keepAlive');
 dotenv.config();
 
 // Connect to database
-//connectDB();
+connectDB();
 
 // Create default admin if not exists
 const createDefaultAdmin = async () => {
   try {
+    // Verificar se está conectado ao MongoDB antes de tentar criar admin
+    if (mongoose.connection.readyState !== 1) {
+      console.log('Skipping admin creation: MongoDB not connected');
+      return;
+    }
+    
     const adminExists = await Admin.findOne({ email: 'admin@test.com' });
     if (!adminExists) {
       await Admin.create({
@@ -52,9 +59,13 @@ const PORT = process.env.PORT || 5000;
 // Start server and create admin
 app.listen(PORT, async () => {
   console.log(`Server running on port ${PORT}`);
-  await createDefaultAdmin();
   
-  // Iniciar keep-alive para evitar spin-down no Render
-  keepAlive();
-  console.log('Keep-alive service started');
+  // Aguardar um pouco para garantir conexão com MongoDB
+  setTimeout(async () => {
+    await createDefaultAdmin();
+    
+    // Iniciar keep-alive para evitar spin-down no Render
+    keepAlive();
+    console.log('Keep-alive service started');
+  }, 2000);
 });

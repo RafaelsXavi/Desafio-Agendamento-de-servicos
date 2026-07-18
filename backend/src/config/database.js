@@ -19,7 +19,10 @@ const connectDB = async () => {
       console.error('     2) Verify the MongoDB Atlas cluster is running');
       console.error('     3) Check if your IP is whitelisted in MongoDB Atlas');
     }
-    process.exit(1);
+    // Não encerrar o processo em produção - permitir que o servidor responda health check
+    if (process.env.NODE_ENV !== 'production') {
+      process.exit(1);
+    }
   }
 };
 

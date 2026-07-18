@@ -8,14 +8,15 @@ const http = require('http');
 
 const keepAlive = () => {
   // Só ativa keep-alive se estiver em produção (Render/Heroku)
-  const isProduction = process.env.RENDER_EXTERNAL_URL || process.env.HEROKU_URL;
+  const isProduction = process.env.RENDER_EXTERNAL_URL || process.env.HEROKU_URL || process.env.NODE_ENV === 'production';
   
   if (!isProduction) {
     console.log('Keep-alive desativado: modo de desenvolvimento');
     return;
   }
   
-  const url = process.env.RENDER_EXTERNAL_URL || process.env.HEROKU_URL;
+  // Usa a URL externa do Render ou constrói a partir da porta
+  const url = process.env.RENDER_EXTERNAL_URL || process.env.HEROKU_URL || `http://localhost:${process.env.PORT || 5000}`;
   const interval = 10 * 60 * 1000; // 10 minutos (em milissegundos)
   
   const ping = () => {
