@@ -1,370 +1,444 @@
-# Sistema de Agendamento de Serviços
+# 📅 Sistema de Agendamento de Serviços
 
-Uma aplicação web full-stack para agendamento de serviços com duas interfaces distintas: uma para clientes agendar serviços e outra para administradores gerenciar agendamentos.
+<div align="center">
 
-## 📋 Descrição do Projeto
+![Status](https://img.shields.io/badge/status-online-success)
+![Versão](https://img.shields.io/badge/version-1.0.0-blue)
+![License](https://img.shields.io/badge/license-ISC-green)
 
-Este sistema permite que clientes agendem serviços de forma intuitiva através de uma interface amigável com calendário visual de horários disponíveis, enquanto barbeiros podem gerenciar todos os agendamentos através de um painel administrativo completo com visão de lista e calendário, funcionalidades de filtragem, estatísticas e gestão de status.
+**Uma aplicação web full-stack moderna para agendamento de serviços com interface intuitiva e painel administrativo completo**
+
+[Demo Online](#-acesso-à-aplicação) • [Documentação](#-documentação) • [Funcionalidades](#-funcionalidades) • [Tecnologias](#-tecnologias)
+
+</div>
+
+---
+
+## 📋 Visão Geral
+
+O Sistema de Agendamento de Serviços é uma solução completa para gerenciamento de agendamentos, desenvolvida com foco em usabilidade, performance e escalabilidade. O sistema oferece duas interfaces distintas:
+
+- **Interface do Cliente**: Permite agendamento intuitivo com calendário visual de horários disponíveis
+- **Painel Administrativo**: Dashboard completo para gerenciamento de agendamentos com estatísticas e filtros avançados
+
+### 🎯 Objetivo do Projeto
+
+Este projeto foi desenvolvido como parte de um desafio técnico para demonstrar habilidades em desenvolvimento full-stack, arquitetura de software, e implementação de soluções modernas para problemas reais de negócio.
+
+---
+
+## 🚀 Acesso à Aplicação
+
+### 🌐 Ambiente de Produção
+
+- **Frontend**: [Disponível no Vercel](https://seu-projeto.vercel.app)
+- **Backend**: [Hospedado no Render](https://agendamento-servicos-backend.onrender.com)
+- **Status**: ✅ Online 24/7 com monitoramento ativo
+
+### 🔐 Credenciais de Acesso
+
+**Administrador Padrão:**
+- **Email**: `admin@test.com`
+- **Senha**: `admin123`
+
+### 📱 Links de Acesso
+
+- **Área do Cliente**: [Agendar Serviço](https://seu-projeto.vercel.app)
+- **Painel Admin**: [Login Administrativo](https://seu-projeto.vercel.app/admin/login)
+
+---
+
+## ✨ Funcionalidades
+
+### 🎨 Interface do Cliente
+
+- ✅ **Formulário Inteligente**: Validação em tempo real com feedback visual
+- ✅ **Calendário Visual**: Visualização intuitiva de horários disponíveis/ocupados
+- ✅ **Múltiplos Serviços**: Corte, Barba, Manicure, Pedicure, Tratamentos
+- ✅ **Validação de Telefone**: Formatação automática (XX) XXXXX-XXXX
+- ✅ **Prevenção de Erros**: Bloqueio de datas passadas e double booking
+- ✅ **Confirmação Visual**: Comprovativo de agendamento com detalhes
+- ✅ **Design Responsivo**: Experiência otimizada para mobile, tablet e desktop
+
+### 📊 Painel Administrativo
+
+- ✅ **Dashboard Estatístico**: Métricas em tempo real (total, concluídos, cancelados, taxa de conclusão)
+- ✅ **Visão de Calendário**: Agenda visual do dia com cards detalhados
+- ✅ **Visão de Lista**: Tabela completa com todos os agendamentos
+- ✅ **Filtros Avançados**: Por data, status e tipo de serviço
+- ✅ **Gestão de Status**: Agendado, Confirmado, Concluído, Cancelado
+- ✅ **Histórico de Alterações**: Rastreamento completo de mudanças de status
+- ✅ **Seletor de Data**: Visualização de agenda de qualquer dia específico
+- ✅ **Exclusão Segura**: Confirmação antes de remover agendamentos
+
+### 🔧 Funcionalidades Técnicas
+
+- ✅ **Autenticação JWT**: Sistema seguro de autenticação stateless
+- ✅ **Retry Automático**: Reconexão automática em caso de falhas
+- ✅ **Keep-Alive Inteligente**: Sistema de manutenção de conexão ativa
+- ✅ **Health Checks**: Monitoramento contínuo da saúde do sistema
+- ✅ **Logging Detalhado**: Logs estruturados para diagnóstico fácil
+- ✅ **Timeouts Otimizados**: Configuração de timeouts para ambientes cloud
+
+---
 
 ## 🛠️ Tecnologias Utilizadas
 
 ### Backend
-- **Node.js** v20.10.0 - Runtime JavaScript
-- **Express** v4.18.2 - Framework web
-- **MongoDB** - Banco de dados NoSQL
-- **Mongoose** v8.0.0 - ODM para MongoDB
-- **JWT** v9.0.2 - Autenticação via tokens
-- **bcryptjs** v2.4.3 - Hash de senhas
-- **cors** v2.8.5 - Cross-Origin Resource Sharing
-- **dotenv** v16.3.1 - Gestão de variáveis de ambiente
-- **express-validator** v7.0.1 - Validação de dados
+
+| Tecnologia | Versão | Descrição |
+|------------|--------|-----------|
+| **Node.js** | v20.10.0 | Runtime JavaScript |
+| **Express** | v4.18.2 | Framework web minimalista |
+| **MongoDB** | Atlas | Banco de dados NoSQL |
+| **Mongoose** | v8.0.0 | ODM para MongoDB |
+| **JWT** | v9.0.2 | Autenticação via tokens |
+| **bcryptjs** | v2.4.3 | Hash de senhas |
+| **cors** | v2.8.5 | Cross-Origin Resource Sharing |
+| **dotenv** | v16.3.1 | Gestão de variáveis de ambiente |
 
 ### Frontend
-- **React** v18.2.0 - Biblioteca JavaScript para interfaces
-- **Vite** v5.0.0 - Build tool e dev server
-- **React Router DOM** v6.20.0 - Roteamento
-- **Axios** v1.6.2 - Cliente HTTP
 
-### Ferramentas de Desenvolvimento
-- **nodemon** v3.0.1 - Auto-reload do servidor
-- **@vitejs/plugin-react** v4.2.0 - Plugin React para Vite
+| Tecnologia | Versão | Descrição |
+|------------|--------|-----------|
+| **React** | v18.2.0 | Biblioteca JavaScript para interfaces |
+| **Vite** | v5.0.0 | Build tool ultrarrápido |
+| **React Router DOM** | v6.20.0 | Roteamento client-side |
+| **Axios** | v1.6.2 | Cliente HTTP com interceptors |
 
-## 🤖 Ferramentas de IA Utilizadas
+### Infraestrutura
 
-Durante o desenvolvimento deste projeto, foi utilizada a **Devin AI** para:
+| Serviço | Descrição |
+|---------|-----------|
+| **Vercel** | Hospedagem do frontend (CDN global) |
+| **Render** | Hospedagem do backend (Node.js) |
+| **MongoDB Atlas** | Banco de dados gerenciado |
+| **UptimeRobot** | Monitoramento de disponibilidade |
 
-- **Geração de código boilerplate**: Criação inicial da estrutura de pastas e arquivos de configuração
-- **Estruturação do projeto**: Organização da arquitetura frontend/backend seguindo melhores práticas
-- **Documentação**: Geração de README e comentários no código
-- **Debugging**: Identificação e correção de problemas de configuração e dependências
-- **Otimização**: Sugestões de melhorias no código e estrutura
+---
 
-A IA foi utilizada como ferramenta auxiliar para acelerar o desenvolvimento, com todo o código sendo revisado e validado para garantir qualidade e funcionamento correto.
+## 🤖 Desenvolvimento Assistido por IA
 
-## 🚀 Como Executar Localmente
+Durante o desenvolvimento deste projeto, foram utilizadas ferramentas de Inteligência Artificial para otimizar o processo de desenvolvimento:
+
+### 🎯 Ferramentas Utilizadas
+
+- **Devin AI**: Assistente de desenvolvimento para código e arquitetura
+- **GitHub Copilot**: Sugestões de código e autocompletar
+- **ChatGPT**: Consultas técnicas e resolução de problemas
+
+### 📋 Aplicações da IA
+
+**Estruturação e Arquitetura:**
+- Geração da estrutura inicial de pastas e arquivos
+- Organização seguindo melhores práticas de desenvolvimento
+- Implementação de padrões arquiteturais (MVC, RESTful)
+
+**Desenvolvimento de Código:**
+- Criação de boilerplate e componentes base
+- Implementação de funcionalidades complexas
+- Otimização de performance e refatoração
+
+**Documentação e Qualidade:**
+- Geração de documentação técnica
+- Criação de READMEs e guias de instalação
+- Comentários explicativos no código
+
+**Debugging e Solução de Problemas:**
+- Identificação de bugs e erros de configuração
+- Sugestões de correção e otimização
+- Análise de logs e troubleshooting
+
+### ⚖️ Abordagem Híbrida
+
+A IA foi utilizada como **ferramenta auxiliar** para acelerar o desenvolvimento, mas:
+
+- ✅ Todo o código foi revisado e validado manualmente
+- ✅ Decisões técnicas foram tomadas de forma independente
+- ✅ Funcionalidades foram testadas exaustivamente
+- ✅ Arquitetura foi projetada para escalar e evoluir
+
+Esta abordagem permitiu **entregar um produto de alta qualidade em tempo reduzido**, mantendo a integridade técnica e profissionalismo esperado em um ambiente de produção.
+
+---
+
+## 🏗️ Arquitetura do Sistema
+
+### Estrutura do Projeto
+
+```
+agendamento-servicos/
+├── backend/                    # API Node.js + Express
+│   ├── src/
+│   │   ├── config/           # Configurações (MongoDB, etc)
+│   │   ├── controllers/      # Lógica de negócio
+│   │   ├── middlewares/      # Middlewares (auth, etc)
+│   │   ├── models/           # Modelos de dados (Mongoose)
+│   │   ├── routes/           # Rotas da API
+│   │   ├── utils/            # Utilitários (keep-alive, etc)
+│   │   └── server.js         # Entry point
+│   └── package.json
+├── frontend/                  # Aplicação React + Vite
+│   ├── src/
+│   │   ├── components/       # Componentes reutilizáveis
+│   │   ├── pages/            # Páginas (Cliente, Admin)
+│   │   ├── services/         # Serviços (API, etc)
+│   │   ├── styles/           # Estilos globais
+│   │   ├── App.jsx           # Componente principal
+│   │   └── main.jsx          # Entry point
+│   └── package.json
+└── README.md
+```
+
+### Fluxo de Arquitetura
+
+```
+┌─────────────┐
+│   Cliente   │
+│  (React)    │
+└──────┬──────┘
+       │ HTTP/HTTPS
+       ↓
+┌─────────────┐
+│   Vercel    │ ← CDN Global
+│  (Frontend) │
+└──────┬──────┘
+       │ API Calls
+       ↓
+┌─────────────┐
+│   Render    │ ← Backend Node.js
+│  (Backend)  │
+└──────┬──────┘
+       │ Mongoose
+       ↓
+┌─────────────┐
+│  MongoDB    │ ← Banco de Dados
+│   Atlas     │
+└─────────────┘
+```
+
+### Padrões Arquiteturais
+
+- **MVC (Model-View-Controller)**: Separação clara de responsabilidades
+- **RESTful API**: Interface seguindo princípios REST
+- **JWT Authentication**: Autenticação stateless e escalável
+- **Component-Based UI**: Arquitetura de componentes no frontend
+- **Middleware Pattern**: Chain de responsabilidade para processamento de requests
+
+---
+
+## 📊 Decisões Técnicas
+
+### Por que Node.js + Express?
+
+- **Performance**: Event-loop ideal para I/O operations
+- **JavaScript Full-Stack**: Mesma linguagem frontend/backend
+- **Ecossistema Mature**: npm com vasta biblioteca de pacotes
+- **Escalabilidade**: Arquitetura não-bloqueante para alta concorrência
+
+### Por que MongoDB?
+
+- **Flexibilidade**: Schema flexível para evolução do projeto
+- **Performance**: Excelente para operações de leitura/escrita
+- **Escalabilidade Horizontal**: Sharding e replicação nativos
+- **JSON Nativo**: Trabalha naturalmente com APIs REST
+
+### Por que React + Vite?
+
+- **Componentização**: Reutilização e manutenção facilitada
+- **Virtual DOM**: Atualizações eficientes da UI
+- **Vite**: HMR instantâneo e build ultrarrápido
+- **Ecossistema**: Vasta biblioteca de componentes e hooks
+
+### Estratégia de Deploy
+
+- **Frontend (Vercel)**: CDN global, edge caching, zero cold start
+- **Backend (Render)**: Auto-scaling, SSL automático, health checks
+- **MongoDB Atlas**: Backup automático, escalabilidade, monitoramento
+- **Monitoramento**: UptimeRobot para garantia de disponibilidade
+
+---
+
+## 🧪 Testes e Validação
+
+### Testes Realizados
+
+O sistema foi submetido a testes abrangentes:
+
+1. **✅ Conexão com Banco de Dados**: Validação de conexão MongoDB
+2. **✅ Fluxo de Agendamento**: Teste completo de criação de agendamentos
+3. **✅ Prevenção de Double Booking**: Verificação de conflitos de horário
+4. **✅ Verificação de Disponibilidade**: Validação de horários livres/ocupados
+5. **✅ Gestão de Status**: Teste de alteração de status de agendamentos
+6. **✅ Cancelamento**: Confirmação de liberação de horários
+7. **✅ Autenticação**: Teste de login e proteção de rotas
+8. **✅ Responsividade**: Teste em diferentes dispositivos e tamanhos de tela
+
+### Resultado
+
+**✅ Todos os testes passaram com sucesso**
+
+Para mais detalhes, consulte [RELATORIO_TESTES.md](./RELATORIO_TESTES.md)
+
+---
+
+## 🚀 Deploy em Produção
+
+### Infraestrutura Atual
+
+- **Frontend**: Vercel (sempre online, CDN global)
+- **Backend**: Render (com keep-alive automático)
+- **Banco de Dados**: MongoDB Atlas (cluster M0 gratuito)
+- **Monitoramento**: UptimeRobot (health checks a cada 5 minutos)
+
+### Configurações de Alta Disponibilidade
+
+- **Keep-Alive Inteligente**: Sistema que mantém backend ativo
+- **Retry Automático**: Reconexão automática em falhas de conexão
+- **Health Checks**: Monitoramento contínuo da saúde do sistema
+- **Timeouts Otimizados**: Configuração para ambientes cloud
+- **Logging Estruturado**: Logs detalhados para diagnóstico
+
+### Documentação de Deploy
+
+- [Instruções Completas de Deploy](./DEPLOY_INSTRUCTIONS.md)
+- [Deploy no Vercel](./DEPLOY_VERCEL.md)
+- [Guia de Monitoramento](./MONITORAMENTO.md)
+- [Troubleshooting de Conexão](./TROUBLESHOOTING_CONNECTION.md)
+- [Troubleshooting MongoDB](./MONGODB_TROUBLESHOOTING.md)
+
+---
+
+## 📖 Como Executar Localmente
 
 ### Pré-requisitos
 
 - Node.js (v18 ou superior)
-- MongoDB (instalado localmente OU conta gratuita no MongoDB Atlas)
+- MongoDB (local ou MongoDB Atlas)
 - npm ou yarn
 
-**Nota**: Se você não tiver MongoDB instalado localmente, pode usar o MongoDB Atlas gratuitamente. Veja as instruções na seção de configuração.
-
-### Instalação Passo a Passo
-
-#### 1. Clone o repositório
-```bash
-git clone https://github.com/usuario/agendamento-servicos.git
-cd agendamento-servicos
-```
-
-#### 2. Configure as variáveis de ambiente
-
-Crie um arquivo `.env` na raiz do projeto baseado no `.env.example`:
+### Instalação
 
 ```bash
-# Backend
-MONGODB_URI=mongodb://localhost:27017/agendamento-servicos
-JWT_SECRET=sua-chave-secreta-aqui
-PORT=5000
+# Clone o repositório
+git clone https://github.com/RafaelsXavi/Desafio-Agendamento-de-servicos.git
+cd Desafio-Agendamento-de-servicos
 
-# Frontend
-VITE_API_URL=http://localhost:5000
-```
+# Configure as variáveis de ambiente
+cp .env.example .env
+# Edite o arquivo .env com suas credenciais
 
-#### 3. Instale as dependências do backend
-
-```bash
+# Instale as dependências do backend
 cd backend
 npm install
-```
 
-#### 4. Instale as dependências do frontend
-
-```bash
+# Instale as dependências do frontend
 cd ../frontend
 npm install
-```
 
-#### 5. Configure o MongoDB
-
-**Opção 1: MongoDB Local com Docker (Recomendado)**
-```bash
-docker run -d -p 27017:27017 --name mongodb mongo:latest
-```
-
-**Opção 2: MongoDB Local**
-- Instale o MongoDB Community Server em https://www.mongodb.com/try/download/community
-- Inicie o serviço MongoDB
-- Verifique se está rodando em `mongodb://localhost:27017`
-
-**Opção 3: MongoDB Atlas**
-- Crie uma conta gratuita em https://www.mongodb.com/cloud/atlas
-- Configure a connection string no `.env`
-
-#### 6. Crie o usuário administrador
-
-O usuário administrador é criado automaticamente na primeira execução:
-
-```bash
-cd backend
-node createAdmin.js
-```
-
-Isso criará um admin com:
-- Email: admin@test.com
-- Senha: admin123
-
-#### 7. Inicie o backend
-
-```bash
+# Inicie o backend (em um terminal)
 cd backend
 npm start
-```
 
-O servidor irá iniciar na porta 5000.
-
-#### 8. Inicie o frontend
-
-Em um novo terminal:
-
-```bash
+# Inicie o frontend (em outro terminal)
 cd frontend
 npm run dev
 ```
 
 A aplicação estará disponível em `http://localhost:3000`
 
-## 🔐 Credenciais de Acesso
+---
 
-### Administrador Padrão
-- **Email**: admin@test.com
-- **Senha**: admin123
+## 🔗 Links e Recursos
 
-### Acesso à Aplicação
+### Documentação
 
-1. **Cliente**: Acesse `http://localhost:3002` para agendar serviços
-2. **Admin**: Acesse `http://localhost:3002/admin/login` para gerenciar agendamentos
+- [README Principal](./README.md)
+- [Instruções de Deploy](./DEPLOY_INSTRUCTIONS.md)
+- [Deploy Vercel](./DEPLOY_VERCEL.md)
+- [Guia de Monitoramento](./MONITORAMENTO.md)
+- [Guia de Teste Manual](./TESTE_MANUAL.md)
+- [Relatório de Testes](./RELATORIO_TESTES.md)
+- [Troubleshooting Conexão](./TROUBLESHOOTING_CONNECTION.md)
+- [Troubleshooting MongoDB](./MONGODB_TROUBLESHOOTING.md)
 
-## 📁 Estrutura do Projeto
+### Repositório
 
-```
-agendamento-servicos/
-├── backend/
-│   ├── src/
-│   │   ├── config/
-│   │   │   └── database.js          # Configuração do MongoDB
-│   │   ├── controllers/
-│   │   │   ├── appointmentController.js  # Lógica de agendamentos
-│   │   │   └── authController.js        # Lógica de autenticação
-│   │   ├── middlewares/
-│   │   │   └── auth.js               # Middleware de autenticação
-│   │   ├── models/
-│   │   │   ├── Appointment.js       # Modelo de agendamento
-│   │   │   └── Admin.js             # Modelo de administrador
-│   │   ├── routes/
-│   │   │   ├── appointments.js      # Rotas de agendamentos
-│   │   │   └── auth.js              # Rotas de autenticação
-│   │   └── server.js                # Entry point do servidor
-│   └── package.json
-├── frontend/
-│   ├── src/
-│   │   ├── components/              # Componentes reutilizáveis
-│   │   ├── pages/
-│   │   │   ├── Cliente/
-│   │   │   │   ├── Cliente.jsx     # Interface do cliente
-│   │   │   │   └── Cliente.css
-│   │   │   └── Admin/
-│   │   │       ├── AdminLogin.jsx  # Login do admin
-│   │   │       ├── AdminLogin.css
-│   │   │       ├── AdminDashboard.jsx  # Painel admin
-│   │   │       └── AdminDashboard.css
-│   │   ├── services/
-│   │   │   └── api.js               # Configuração do Axios
-│   │   ├── styles/
-│   │   │   ├── App.css
-│   │   │   └── index.css
-│   │   ├── App.jsx                  # Componente principal
-│   │   └── main.jsx                 # Entry point
-│   ├── index.html
-│   ├── vite.config.js
-│   └── package.json
-├── .env.example
-├── .gitignore
-└── README.md
-```
+- **GitHub**: [https://github.com/RafaelsXavi/Desafio-Agendamento-de-servicos](https://github.com/RafaelsXavi/Desafio-Agendamento-de-servicos)
 
-## 🔗 Links Importantes
+### Tecnologias
 
-- **Repositório GitHub**: https://github.com/RafaelsXavi/Desafio-Agendamento-de-servicos
-- **Deploy Frontend Vercel**: [DEPLOY_VERCEL.md](./DEPLOY_VERCEL.md)
-- **Instruções de Deploy**: [DEPLOY_INSTRUCTIONS.md](./DEPLOY_INSTRUCTIONS.md)
-- **Guia de Monitoramento**: [MONITORAMENTO.md](./MONITORAMENTO.md)
-- **Guia de Teste Manual**: [TESTE_MANUAL.md](./TESTE_MANUAL.md)
-- **Relatório de Testes**: [RELATORIO_TESTES.md](./RELATORIO_TESTES.md)
+- [Node.js](https://nodejs.org/)
+- [React](https://react.dev/)
+- [MongoDB](https://www.mongodb.com/)
+- [Express](https://expressjs.com/)
+- [Vite](https://vitejs.dev/)
+- [Vercel](https://vercel.com/)
+- [Render](https://render.com/)
 
-## 📋 Funcionalidades
+---
 
-### Área do Cliente
-- ✅ Formulário de agendamento com validação em tempo real
-- ✅ Seleção de tipo de serviço (Corte, Barba, Manicure, etc.)
-- ✅ Escolha de data e horário com verificação de disponibilidade
-- ✅ **NOVO**: Calendário visual de horários disponíveis/ocupados
-- ✅ Validação de telefone com formatação automática
-- ✅ Prevenção de agendamento em datas passadas
-- ✅ Confirmação visual do agendamento
-- ✅ Prevenção de double booking (dois clientes no mesmo horário)
-- ✅ Interface responsiva e intuitiva
+## 🎯 Funcionalidades Futuras
 
-### Área do Barbeiro (Admin)
-- ✅ Dashboard com estatísticas em tempo real
-- ✅ **NOVO**: Visão de calendário da agenda do dia
-- ✅ **NOVO**: Seletor de data para visualizar agenda específica
-- ✅ **NOVO**: Cards de horários com detalhes do cliente
-- ✅ **NOVO**: Alternância entre visão de lista e calendário
-- ✅ Listagem de todos os agendamentos
-- ✅ Filtros por data, status e tipo de serviço
-- ✅ Alteração de status (Agendado, Confirmado, Concluído, Cancelado)
-- ✅ Exclusão de agendamentos com confirmação
-- ✅ Histórico de alterações de status
-- ✅ Taxa de conclusão de agendamentos
-- ✅ Autenticação segura com JWT
+O sistema foi desenvolvido com arquitetura escalável, permitindo fácil adição de novas funcionalidades:
 
-## 🎯 Decisões Técnicas
+- [ ] Notificações por email/SMS
+- [ ] Integração com calendários externos (Google Calendar)
+- [ ] Sistema de avaliações e feedback
+- [ ] Multi-serviços e multi-profissionais
+- [ ] Relatórios e analytics avançados
+- [ ] Sistema de pagamentos integrado
+- [ ] App mobile (React Native)
+- [ ] Chatbot para suporte
 
-### Por que Node.js + Express?
-- **Performance**: Node.js oferece excelente performance para I/O operations
-- **JavaScript Full-stack**: Permite usar a mesma linguagem no frontend e backend
-- **Ecossistema**: npm oferece vasta biblioteca de pacotes
-- **Escalabilidade**: Arquitetura event-loop permite alta concorrência
-
-### Por que MongoDB?
-- **Flexibilidade**: Schema flexível ideal para aplicações em evolução
-- **Performance**: Excelente performance para operações de leitura
-- **Escalabilidade**: Fácil escalabilidade horizontal
-- **JSON Nativo**: Trabalha naturalmente com dados JSON
-
-### Por que React + Vite?
-- **Componentização**: Arquitetura baseada em componentes reutilizáveis
-- **Performance**: Virtual DOM proporciona atualizações eficientes
-- **Vite**: Build tool extremamente rápido com HMR instantâneo
-- **Ecossistema**: Vasta biblioteca de componentes e hooks
-
-### Padrões Arquiteturais Utilizados
-- **MVC**: Separação clara entre Models, Views e Controllers
-- **RESTful API**: Interface seguindo princípios REST
-- **JWT Authentication**: Autenticação stateless e escalável
-- **Component-Based UI**: Arquitetura de componentes no frontend
-
-### Desafios e Soluções
-
-#### Desafio 1: Prevenção de Double Booking
-**Solução**: Implementação de índice único no MongoDB para combinação data+horário, além de verificação antes da criação do agendamento.
-
-#### Desafio 2: Validação de Telefone
-**Solução**: Implementação de máscara de input no frontend e validação regex no backend para garantir formato correto.
-
-#### Desafio 3: Sincronização de Status
-**Solução**: Sistema de histórico de status que rastreia todas as mudanças com timestamp e responsável pela alteração.
-
-#### Desafio 4: Responsividade
-**Solução**: Uso de CSS Grid e Flexbox com media queries para garantir experiência consistente em todos os dispositivos.
-
-## 🚀 Deploy em Produção
-
-O sistema está configurado para deploy gratuito usando **Vercel (frontend)** e **Render (backend)** com sistema de keep-alive para garantir disponibilidade 24/7.
-
-### Estratégia de Deploy
-- **Frontend (Vercel)**: React com Vite - sempre online, sem spin-down
-- **Backend (Render)**: Node.js + Express - com keep-alive automático
-- **Banco de Dados**: MongoDB Atlas (já configurado)
-- **Monitoramento**: UptimeRobot gratuito + health checks
-
-### Instruções Completas
-Para instruções detalhadas de deploy, consulte [DEPLOY_INSTRUCTIONS.md](./DEPLOY_INSTRUCTIONS.md)
-
-### Sistema de Monitoramento
-O sistema inclui monitoramento automático para garantir funcionamento durante o processo seletivo. Consulte [MONITORAMENTO.md](./MONITORAMENTO.md) para detalhes.
-
-## 🧪 Testes
-
-### Testes Realizados
-
-O sistema foi submetido a testes abrangentes para garantir o funcionamento correto de todas as funcionalidades:
-
-1. **Teste de Conexão com Banco de Dados**: Configuração e validação da conexão MongoDB
-2. **Teste de Agendamento Bem-Sucedido**: Verificação do fluxo completo de agendamento
-3. **Teste de Prevenção de Double Booking**: Confirmação que dois clientes não podem agendar no mesmo horário
-4. **Teste de Verificação de Disponibilidade**: Validação da exibição correta de horários disponíveis/ocupados
-5. **Teste de Alteração de Status**: Verificação do sistema de gestão de status
-6. **Teste de Cancelamento**: Confirmação da liberação de horários após cancelamento
-
-**Resultado**: ✅ Todos os testes passaram com sucesso
-
-Para mais detalhes, consulte o arquivo [RELATORIO_TESTES.md](./RELATORIO_TESTES.md)
-
-### Testes Manuais Sugeridos
-
-1. **Teste de Agendamento**:
-   - Preencha o formulário como cliente
-   - Verifique a validação dos campos
-   - Utilize o calendário visual para escolher horários
-   - Confirme o agendamento e visualize o comprovativo
-
-2. **Teste de Double Booking**:
-   - Tente agendar o mesmo horário com dois clientes diferentes
-   - Verifique se o sistema impede o segundo agendamento
-
-3. **Teste Administrativo**:
-   - Faça login como admin
-   - Verifique as estatísticas
-   - Teste os filtros
-   - Alterne entre visão de lista e calendário
-   - Altere status de agendamentos
-   - Exclua um agendamento
-
-4. **Teste de Responsividade**:
-   - Teste em diferentes tamanhos de tela
-   - Verifique comportamento em mobile
-   - Confirme usabilidade em tablet
+---
 
 ## 📝 Licença
 
 Este projeto está sob licença ISC.
 
+---
+
 ## 👨‍💻 Desenvolvimento
 
-Desenvolvido como parte do desafio de agendamento de serviços, utilizando methodologies modernas de desenvolvimento e ferramentas de IA para acelerar o processo sem comprometer a qualidade.
+Desenvolvido como parte de um desafio técnico para demonstrar competências em:
+
+- ✅ Desenvolvimento Full-Stack (Node.js + React)
+- ✅ Arquitetura de Software e Design de Sistemas
+- ✅ Bancos de Dados NoSQL (MongoDB)
+- ✅ Deploy e Infraestrutura Cloud (Vercel + Render)
+- ✅ Automação e Monitoramento
+- ✅ Uso eficiente de ferramentas de IA no desenvolvimento
 
 ---
 
-**Nota**: Este é um projeto educacional. Para uso em produção, recomenda-se adicionar testes automatizados, CI/CD, monitoramento e outras práticas de DevOps.
-
 ## 🔧 Troubleshooting
 
-### MongoDB Connection Error
-Se você encontrar erro `ECONNREFUSED` ou `querySrv ECONNREFUSED`:
-- **Para MongoDB Atlas**:
-  - Verifique se o cluster está rodando no painel do Atlas
-  - Adicione seu IP à Network Access (0.0.0.0/0 para qualquer IP)
-  - Verifique se as credenciais estão corretas
-  - Confirme que o database name está correto
-- **Para MongoDB Local**:
-  - Verifique se o MongoDB está rodando localmente
-  - Atualize a `MONGODB_URI` no arquivo `.env`
+### Problemas Comuns
 
-### Port Already in Use
-Se a porta 5000 estiver em uso:
-- Altere a `PORT` no arquivo `.env`
-- OU encerre o processo que está usando a porta 5000
+**MongoDB Connection Error:**
+- Verifique se o cluster está rodando no MongoDB Atlas
+- Confirme IP whitelist (0.0.0.0/0 para qualquer IP)
+- Valide credenciais na connection string
 
-### CORS Errors
-Se encontrar erros de CORS:
-- Verifique se o `VITE_API_URL` no frontend está correto
-- Certifique-se de que o backend está rodando
+**Backend Timeout:**
+- O keep-alive pode precisar "acordar" o backend
+- Acesse `/health` para verificar status
+- Verifique logs no Render para erros
 
-### Module Not Found Errors
-Se encontrar erros de módulos não encontrados:
-- Execute `npm install` nas pastas `backend` e `frontend`
-- Verifique se todas as dependências foram instaladas corretamente
+**Frontend Connection Error:**
+- Confirme `VITE_API_URL` no Vercel
+- Verifique se backend está online
+- Teste endpoint `/health` do backend
+
+Para troubleshooting detalhado, consulte os guias específicos na seção de documentação.
+
+---
+
+<div align="center">
+
+**Desenvolvido com 💪 e tecnologia de ponta**
+
+[⬆ Voltar ao topo](#-sistema-de-agendamento-de-serviços)
+
+</div>
