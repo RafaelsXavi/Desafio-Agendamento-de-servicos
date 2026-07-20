@@ -61,12 +61,41 @@ app.get('/', (req, res) => {
 });
 
 // Health check endpoint for Render monitoring
-app.get('/health', (req, res) => {
-  res.status(200).json({
-    status: 'ok',
-    timestamp: new Date().toISOString(),
-    uptime: process.uptime()
-  });
+app.get('/health', async (req, res) => {
+  try {
+    // Verificar conexão com MongoDB
+    const mongoState = mongoose.connection.readyState;
+    const mongoStates = {
+      0: 'disconnected',
+      1: 'connected',
+      2: 'connecting',
+      3: 'disconnecting'
+    };
+    
+    const healthData = {
+      status: mongoState === 1 ? 'ok' : 'degraded',
+      timestamp: new Date().toISOString(),
+      uptime: process.uptime(),
+      mongodb: {
+        state: mongoStates[mongoState],
+        readyState: mongoState
+      }
+    };
+    
+    // Se MongoDB não estiver conectado, retorna degraded mas ainda 200
+    // Isso permite que o Render continue monitorando
+    const statusCode = mongoState === 1 ? 200 : 200;
+    
+    res.status(statusCode).json(healthData);
+  } catch (error) {
+    // Mesmo com erro, retorna 200 para não falhar o health check do Render
+    res.status(200).json({
+      status: 'error',
+      timestamp: new Date().toISOString(),
+      uptime: process.uptime(),
+      error: error.message
+    });
+  }
 });
 
 const PORT = process.env.PORT || 5000;

@@ -9,9 +9,11 @@
  * - Fallback URL usando porta do Render
  * - Logging mais detalhado para debug
  * - Verificação de saúde do servidor
+ * - Suporte a HTTPS
  */
 
 const http = require('http');
+const https = require('https');
 
 const keepAlive = () => {
   // Só ativa keep-alive se estiver em produção (Render/Heroku)
@@ -36,7 +38,10 @@ const keepAlive = () => {
       const healthUrl = `${url}/health`;
       console.log(`[${new Date().toISOString()}] Keep-alive ping: ${healthUrl} (Tentativa ${retryCount + 1}/${maxRetries})`);
       
-      const req = http.get(healthUrl, (res) => {
+      // Escolher o protocolo correto (http ou https)
+      const protocol = url.startsWith('https') ? https : http;
+      
+      const req = protocol.get(healthUrl, (res) => {
         let data = '';
         
         res.on('data', (chunk) => {

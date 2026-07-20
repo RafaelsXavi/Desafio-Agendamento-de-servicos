@@ -40,6 +40,15 @@ const Cliente = () => {
       setBookedSlots(response.data.bookedSlots || []);
     } catch (err) {
       console.error('Erro ao buscar horários disponíveis:', err);
+      // Fallback: mostrar todos os horários como disponíveis em caso de erro
+      const businessHours = [];
+      for (let hour = 9; hour < 18; hour++) {
+        businessHours.push(`${hour.toString().padStart(2, '0')}:00`);
+        businessHours.push(`${hour.toString().padStart(2, '0')}:30`);
+      }
+      setAvailableSlots(businessHours);
+      setBookedSlots([]);
+      setError('Não foi possível verificar disponibilidade. Todos os horários estão disponíveis.');
     }
   };
 

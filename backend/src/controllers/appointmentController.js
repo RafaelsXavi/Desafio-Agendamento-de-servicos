@@ -189,6 +189,14 @@ const getAvailableSlots = async (req, res) => {
   try {
     const { date } = req.params;
 
+    console.log(`[getAvailableSlots] Buscando slots para data: ${date}`);
+
+    // Validate date format
+    if (!date || !/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+      console.error(`[getAvailableSlots] Formato de data inválido: ${date}`);
+      return res.status(400).json({ message: 'Formato de data inválido. Use YYYY-MM-DD' });
+    }
+
     // Define business hours (9:00 to 18:00)
     const businessHours = [];
     for (let hour = 9; hour < 18; hour++) {
@@ -196,16 +204,32 @@ const getAvailableSlots = async (req, res) => {
       businessHours.push(`${hour.toString().padStart(2, '0')}:30`);
     }
 
-    // Get booked slots for the date
+    console.log(`[getAvailableSlots] Horários de funcionamento: ${businessHours.length} slots`);
+
+    // Get booked slots for the date - use date range for better reliability
+    const startDate = new Date(date);
+    startDate.setHours(0, 0, 0, 0);
+    const endDate = new Date(date);
+    endDate.setHours(23, 59, 59, 999);
+
+    console.log(`[getAvailableSlots] Buscando agendamentos entre ${startDate.toISOString()} e ${endDate.toISOString()}`);
+
     const bookedAppointments = await Appointment.find({
-      date: new Date(date),
+      date: {
+        $gte: startDate,
+        $lte: endDate
+      },
       status: { $ne: 'Cancelado' }
     });
+
+    console.log(`[getAvailableSlots] Agendamentos encontrados: ${bookedAppointments.length}`);
 
     const bookedSlots = bookedAppointments.map(app => app.time);
 
     // Filter available slots
     const availableSlots = businessHours.filter(slot => !bookedSlots.includes(slot));
+
+    console.log(`[getAvailableSlots] Slots disponíveis: ${availableSlots.length}, Slots ocupados: ${bookedSlots.length}`);
 
     res.json({
       success: true,
@@ -213,8 +237,8 @@ const getAvailableSlots = async (req, res) => {
       bookedSlots
     });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Erro no servidor' });
+    console.error('[getAvailableSlots] Erro:', error);
+    res.status(500).json({ message: 'Erro no servidor', error: error.message });
   }
 };
 

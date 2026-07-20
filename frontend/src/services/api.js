@@ -10,7 +10,7 @@ const api = axios.create({
   headers: {
     'Content-Type': 'application/json'
   },
-  timeout: 15000, // 15 segundos de timeout
+  timeout: 30000, // 30 segundos de timeout (aumentado para lidar com spin-down do Render)
 });
 
 // Contador de tentativas para retry
