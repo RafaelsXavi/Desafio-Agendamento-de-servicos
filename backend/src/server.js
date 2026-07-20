@@ -17,7 +17,7 @@ const createDefaultAdmin = async () => {
   try {
     // Verificar se está conectado ao MongoDB antes de tentar criar admin
     if (mongoose.connection.readyState !== 1) {
-      console.log('Skipping admin creation: MongoDB not connected');
+      console.log('⚠️  Skipping admin creation: MongoDB not connected');
       return;
     }
     
@@ -27,10 +27,12 @@ const createDefaultAdmin = async () => {
         email: 'admin@test.com',
         password: 'admin123'
       });
-      console.log('Default admin created: admin@test.com / admin123');
+      console.log('✅ Default admin created: admin@test.com / admin123');
+    } else {
+      console.log('✅ Admin already exists: admin@test.com');
     }
   } catch (error) {
-    console.error('Error creating default admin:', error);
+    console.error('❌ Error creating default admin:', error);
   }
 };
 
@@ -104,12 +106,43 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, async () => {
   console.log(`Server running on port ${PORT}`);
   
-  // Aguardar um pouco para garantir conexão com MongoDB
-  setTimeout(async () => {
-    await createDefaultAdmin();
+  // Aguardar conexão com MongoDB antes de criar admin e iniciar keep-alive
+  const waitForMongoDB = () => {
+    return new Promise((resolve) => {
+      const checkInterval = setInterval(() => {
+        if (mongoose.connection.readyState === 1) {
+          clearInterval(checkInterval);
+          resolve();
+        }
+      }, 1000);
+      
+      // Timeout após 30 segundos
+      setTimeout(() => {
+        clearInterval(checkInterval);
+        console.warn('⚠️  MongoDB connection timeout after 30s');
+        resolve(); // Continuar mesmo sem MongoDB
+      }, 30000);
+    });
+  };
+  
+  try {
+    console.log('⏳ Aguardando conexão com MongoDB...');
+    await waitForMongoDB();
+    console.log('✅ MongoDB conectado ou timeout atingido');
+    
+    // Criar admin apenas se MongoDB estiver conectado
+    if (mongoose.connection.readyState === 1) {
+      await createDefaultAdmin();
+    } else {
+      console.warn('⚠️  Pulando criação de admin (MongoDB não conectado)');
+    }
     
     // Iniciar keep-alive para evitar spin-down no Render
     keepAlive();
-    console.log('Keep-alive service started');
-  }, 2000);
+    console.log('✅ Keep-alive service started');
+    
+  } catch (error) {
+    console.error('❌ Erro durante inicialização:', error);
+    // Continuar mesmo com erro para permitir health check
+  }
 });
