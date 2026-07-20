@@ -14,4 +14,7 @@ services:
         value: 10000
       - key: NODE_ENV
         value: production
+      - key: RENDER_EXTERNAL_URL
+        value: https://agendamento-servicos-backend.onrender.com
     healthCheckPath: /health
+    autoDeploy: false  # Evita deploys automáticos desnecessários
