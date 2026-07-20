@@ -19,8 +19,6 @@ const connectDB = async () => {
       minPoolSize: 2, // Mínimo de conexões no pool
       retryWrites: true, // Retry de escritas
       retryReads: true, // Retry de leituras
-      // Opções de reconexão automática
-      serverSelectionTryOnce: false, // Tentar múltiplas vezes
       family: 4, // Forçar IPv4
     };
     
@@ -71,11 +69,14 @@ const connectDB = async () => {
     // Retry automático em produção
     if (process.env.NODE_ENV === 'production' && retryCount < MAX_RETRIES) {
       retryCount++;
-      console.log(`🔄 Retrying connection in ${RETRY_DELAY/1000} seconds...`);
+      console.log(`🔄 Retrying connection in ${RETRY_DELAY/1000} seconds... (tentativa ${retryCount}/${MAX_RETRIES})`);
       setTimeout(connectDB, RETRY_DELAY);
     } else if (process.env.NODE_ENV !== 'production') {
       // Em desenvolvimento, encerrar após falhas
       process.exit(1);
+    } else {
+      // Em produção, após exceder retries, não tentar mais
+      console.error(`❌ MongoDB connection failed after ${MAX_RETRIES} attempts. Server will continue without database.`);
     }
   }
 };

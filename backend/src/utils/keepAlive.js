@@ -106,7 +106,8 @@ const keepAlive = () => {
   // Ping a cada intervalo
   setInterval(ping, interval);
   
-  console.log(`Keep-alive ativado: modo de produção (URL: ${url}, Intervalo: ${interval/1000}min)`);
+  const intervalMinutes = Math.round(interval / 60000); // Converter para minutos corretamente
+  console.log(`Keep-alive ativado: modo de produção (URL: ${url}, Intervalo: ${intervalMinutes}min)`);
 };
 
 module.exports = keepAlive;
