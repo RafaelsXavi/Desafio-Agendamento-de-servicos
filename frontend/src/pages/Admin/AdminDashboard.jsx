@@ -293,7 +293,7 @@ const AdminDashboard = () => {
                         <td>{appointment.clientName}</td>
                         <td>{appointment.phone}</td>
                         <td>{appointment.serviceType}</td>
-                        <td>{new Date(appointment.date).toLocaleDateString('pt-BR')}</td>
+                        <td>{new Date(appointment.date + 'T00:00:00').toLocaleDateString('pt-BR')}</td>
                         <td>{appointment.time}</td>
                         <td>
                           <select
@@ -343,7 +343,7 @@ const AdminDashboard = () => {
                   const timeSlot = `${hour.toString().padStart(2, '0')}:${minute}`;
                   
                   const appointment = appointments.find(
-                    app => new Date(app.date).toISOString().split('T')[0] === selectedDate && 
+                    app => new Date(app.date + 'T00:00:00').toISOString().split('T')[0] === selectedDate && 
                            app.time === timeSlot && 
                            app.status !== 'Cancelado'
                   );

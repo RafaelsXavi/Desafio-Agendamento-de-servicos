@@ -73,7 +73,9 @@ const createAppointment = async (req, res) => {
     }
 
     // Check if date is in the past
-    const appointmentDate = new Date(date);
+    // Parse date correctly to avoid timezone issues
+    const [year, month, day] = date.split('-').map(Number);
+    const appointmentDate = new Date(year, month - 1, day);
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     
@@ -207,9 +209,11 @@ const getAvailableSlots = async (req, res) => {
     console.log(`[getAvailableSlots] Horários de funcionamento: ${businessHours.length} slots`);
 
     // Get booked slots for the date - use date range for better reliability
-    const startDate = new Date(date);
+    // Parse date correctly to avoid timezone issues
+    const [year, month, day] = date.split('-').map(Number);
+    const startDate = new Date(year, month - 1, day);
     startDate.setHours(0, 0, 0, 0);
-    const endDate = new Date(date);
+    const endDate = new Date(year, month - 1, day);
     endDate.setHours(23, 59, 59, 999);
 
     console.log(`[getAvailableSlots] Buscando agendamentos entre ${startDate.toISOString()} e ${endDate.toISOString()}`);
