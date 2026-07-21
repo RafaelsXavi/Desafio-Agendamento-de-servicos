@@ -1,0 +1,4 @@
+interface:
+  display_name: "Page Builder"
+  short_description: "Crie páginas React responsivas com Vite"
+  default_prompt: "Use $page-builder para criar uma landing page responsiva em React com Vite."

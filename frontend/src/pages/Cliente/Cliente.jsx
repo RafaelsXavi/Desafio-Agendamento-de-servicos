@@ -1,317 +1,113 @@
-import React, { useState, useEffect } from 'react';
-import api from '../../services/api';
+import React from 'react';
 import './Cliente.css';
 
-const Cliente = () => {
-  const [formData, setFormData] = useState({
-    clientName: '',
-    phone: '',
-    serviceType: '',
-    date: '',
-    time: ''
-  });
-  const [availableSlots, setAvailableSlots] = useState([]);
-  const [bookedSlots, setBookedSlots] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
-  const [showConfirmation, setShowConfirmation] = useState(false);
-  const [appointmentDetails, setAppointmentDetails] = useState(null);
-  const [showCalendar, setShowCalendar] = useState(false);
+const whatsappLink = 'https://wa.me/5511999999999';
 
-  const serviceTypes = ['Corte de Cabelo', 'Barba', 'Corte + Barba', 'Manicure', 'Pedicure', 'Tratamento'];
+const services = [
+  {
+    title: 'Corte clássico',
+    description: 'Um corte bem executado, alinhado ao seu estilo e à sua rotina.',
+  },
+  {
+    title: 'Barba completa',
+    description: 'Acabamento preciso para valorizar os traços do seu rosto.',
+  },
+  {
+    title: 'Corte + barba',
+    description: 'Uma experiência completa para sair pronto para qualquer ocasião.',
+  },
+];
 
-  useEffect(() => {
-    // Set minimum date to today
-    const today = new Date().toISOString().split('T')[0];
-    document.getElementById('date').setAttribute('min', today);
-  }, []);
+const WhatsAppButton = ({ children, className = 'prime-button' }) => (
+  <a className={className} href={whatsappLink} target="_blank" rel="noreferrer">
+    {children}
+    <span aria-hidden="true">→</span>
+  </a>
+);
 
-  useEffect(() => {
-    if (formData.date) {
-      fetchAvailableSlots(formData.date);
-    }
-  }, [formData.date]);
+const Cliente = () => (
+  <div className="prime-page">
+    <header className="prime-header" aria-label="Header da Barbearia Prime">
+      <a className="prime-logo" href="#inicio" aria-label="Barbearia Prime, início">
+        <span className="logo-mark" aria-hidden="true">P</span>
+        <span>Barbearia <strong>Prime</strong></span>
+      </a>
 
-  const fetchAvailableSlots = async (date) => {
-    try {
-      const response = await api.get(`/appointments/available/${date}`);
-      setAvailableSlots(response.data.availableSlots);
-      setBookedSlots(response.data.bookedSlots || []);
-    } catch (err) {
-      console.error('Erro ao buscar horários disponíveis:', err);
-      // Fallback: mostrar todos os horários como disponíveis em caso de erro
-      const businessHours = [];
-      for (let hour = 9; hour < 18; hour++) {
-        businessHours.push(`${hour.toString().padStart(2, '0')}:00`);
-        businessHours.push(`${hour.toString().padStart(2, '0')}:30`);
-      }
-      setAvailableSlots(businessHours);
-      setBookedSlots([]);
-      setError('Não foi possível verificar disponibilidade. Todos os horários estão disponíveis.');
-    }
-  };
+      <nav className="prime-nav" aria-label="Navegação principal">
+        <a href="#servicos">Serviços</a>
+        <a href="#sobre">Sobre</a>
+        <a href="#contato">Contato</a>
+      </nav>
 
-  const validateForm = () => {
-    if (formData.clientName.length < 3) {
-      setError('Nome deve ter pelo menos 3 caracteres');
-      return false;
-    }
+      <WhatsAppButton className="header-cta">Agendar horário</WhatsAppButton>
+    </header>
 
-    const phoneClean = formData.phone.replace(/\D/g, '');
-    if (phoneClean.length < 10 || phoneClean.length > 11) {
-      setError('Telefone inválido');
-      return false;
-    }
-
-    if (!formData.serviceType) {
-      setError('Selecione o tipo de serviço');
-      return false;
-    }
-
-    if (!formData.date) {
-      setError('Selecione a data');
-      return false;
-    }
-
-    if (!formData.time) {
-      setError('Selecione o horário');
-      return false;
-    }
-
-    return true;
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError('');
-    setSuccess('');
-
-    if (!validateForm()) {
-      return;
-    }
-
-    setLoading(true);
-
-    try {
-      const response = await api.post('/appointments', formData);
-      
-      setAppointmentDetails(response.data.appointment);
-      setShowConfirmation(true);
-      setSuccess('Agendamento realizado com sucesso!');
-      
-      // Reset form
-      setFormData({
-        clientName: '',
-        phone: '',
-        serviceType: '',
-        date: '',
-        time: ''
-      });
-      setAvailableSlots([]);
-    } catch (err) {
-      setError(err.response?.data?.message || 'Erro ao realizar agendamento');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-    setError('');
-  };
-
-  const handlePhoneChange = (e) => {
-    let value = e.target.value.replace(/\D/g, '');
-    
-    if (value.length > 11) value = value.slice(0, 11);
-    
-    if (value.length > 0) {
-      if (value.length <= 2) {
-        value = `(${value}`;
-      } else if (value.length <= 7) {
-        value = `(${value.slice(0, 2)}) ${value.slice(2)}`;
-      } else {
-        value = `(${value.slice(0, 2)}) ${value.slice(2, 7)}-${value.slice(7)}`;
-      }
-    }
-    
-    setFormData({
-      ...formData,
-      phone: value
-    });
-    setError('');
-  };
-
-  if (showConfirmation) {
-    return (
-      <div className="cliente-container">
-        <div className="confirmation-card">
-          <div className="success-icon">✓</div>
-          <h2>Agendamento Confirmado!</h2>
-          <div className="appointment-details">
-            <p><strong>Cliente:</strong> {appointmentDetails.clientName}</p>
-            <p><strong>Telefone:</strong> {appointmentDetails.phone}</p>
-            <p><strong>Serviço:</strong> {appointmentDetails.serviceType}</p>
-            <p><strong>Data:</strong> {new Date(appointmentDetails.date).toLocaleDateString('pt-BR')}</p>
-            <p><strong>Horário:</strong> {appointmentDetails.time}</p>
-            <p><strong>Status:</strong> {appointmentDetails.status}</p>
+    <main>
+      <section className="prime-hero" id="inicio" aria-labelledby="hero-title">
+        <div className="hero-content">
+          <p className="eyebrow">Cotia · São Paulo</p>
+          <h1 id="hero-title">O seu estilo merece <em>precisão.</em></h1>
+          <p className="hero-copy">Cortes e barbas com atenção aos detalhes, em um ambiente feito para você desacelerar.</p>
+          <div className="hero-actions">
+            <WhatsAppButton>Falar no WhatsApp</WhatsAppButton>
+            <a className="text-link" href="#servicos">Conhecer serviços <span aria-hidden="true">↓</span></a>
           </div>
-          <button 
-            className="btn btn-primary" 
-            onClick={() => setShowConfirmation(false)}
-          >
-            Novo Agendamento
-          </button>
         </div>
-      </div>
-    );
-  }
+        <div className="hero-art" aria-hidden="true">
+          <div className="hero-ring hero-ring-one" />
+          <div className="hero-ring hero-ring-two" />
+          <div className="hero-monogram">BP</div>
+          <p>ESTILO · CUIDADO · PRESENÇA</p>
+        </div>
+      </section>
 
-  return (
-    <div className="cliente-container">
-      <div className="card">
-        <h1>Agendamento de Serviços</h1>
-        <p>Preencha os dados abaixo para agendar seu serviço</p>
-        
-        {error && <div className="alert alert-error">{error}</div>}
-        {success && <div className="alert alert-success">{success}</div>}
+      <section className="prime-section services-section" id="servicos" aria-labelledby="services-title">
+        <div className="section-heading">
+          <p className="eyebrow">Nossos cuidados</p>
+          <h2 id="services-title">Serviços que respeitam a sua identidade.</h2>
+        </div>
+        <div className="service-grid">
+          {services.map((service, index) => (
+            <article className="service-card" key={service.title}>
+              <span className="service-number">0{index + 1}</span>
+              <h3>{service.title}</h3>
+              <p>{service.description}</p>
+              <a href={whatsappLink} target="_blank" rel="noreferrer" className="service-link">
+                Agendar este serviço <span aria-hidden="true">↗</span>
+              </a>
+            </article>
+          ))}
+        </div>
+      </section>
 
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="clientName">Nome Completo *</label>
-            <input
-              type="text"
-              id="clientName"
-              name="clientName"
-              value={formData.clientName}
-              onChange={handleChange}
-              placeholder="Digite seu nome completo"
-              required
-            />
-          </div>
+      <section className="prime-section about-section" id="sobre" aria-labelledby="about-title">
+        <div className="about-art" aria-hidden="true"><span>PRIME</span></div>
+        <div className="about-content">
+          <p className="eyebrow">Nossa essência</p>
+          <h2 id="about-title">Mais que um corte. Um momento seu.</h2>
+          <p>Na Barbearia Prime, cada atendimento começa ouvindo o que você procura. Nosso foco é unir técnica, conversa e cuidado para que você saia se reconhecendo no espelho.</p>
+          <p>Estamos em Cotia para tornar a rotina de autocuidado mais simples, elegante e próxima.</p>
+          <WhatsAppButton className="prime-button prime-button-outline">Conversar com a equipe</WhatsAppButton>
+        </div>
+      </section>
 
-          <div className="form-group">
-            <label htmlFor="phone">Telefone *</label>
-            <input
-              type="tel"
-              id="phone"
-              name="phone"
-              value={formData.phone}
-              onChange={handlePhoneChange}
-              placeholder="(00) 00000-0000"
-              required
-            />
-          </div>
+      <section className="final-cta" id="contato" aria-labelledby="cta-title">
+        <p className="eyebrow">CTA final</p>
+        <h2 id="cta-title">Seu próximo visual começa aqui.</h2>
+        <p>Escolha o melhor horário e fale diretamente com a nossa equipe.</p>
+        <WhatsAppButton>Agendar pelo WhatsApp</WhatsAppButton>
+      </section>
+    </main>
 
-          <div className="form-group">
-            <label htmlFor="serviceType">Tipo de Serviço *</label>
-            <select
-              id="serviceType"
-              name="serviceType"
-              value={formData.serviceType}
-              onChange={handleChange}
-              required
-            >
-              <option value="">Selecione um serviço</option>
-              {serviceTypes.map(type => (
-                <option key={type} value={type}>{type}</option>
-              ))}
-            </select>
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="date">Data *</label>
-            <input
-              type="date"
-              id="date"
-              name="date"
-              value={formData.date}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="time">Horário *</label>
-            <select
-              id="time"
-              name="time"
-              value={formData.time}
-              onChange={handleChange}
-              required
-              disabled={!formData.date || availableSlots.length === 0}
-            >
-              <option value="">Selecione um horário</option>
-              {availableSlots.map(slot => (
-                <option key={slot} value={slot}>{slot}</option>
-              ))}
-            </select>
-            {formData.date && availableSlots.length === 0 && (
-              <p className="error">Não há horários disponíveis para esta data</p>
-            )}
-            {formData.date && (
-              <button 
-                type="button" 
-                className="btn btn-secondary"
-                onClick={() => setShowCalendar(!showCalendar)}
-              >
-                {showCalendar ? 'Ocultar Calendário' : 'Ver Calendário de Horários'}
-              </button>
-            )}
-          </div>
-
-          <button 
-            type="submit" 
-            className="btn btn-primary"
-            disabled={loading}
-          >
-            {loading ? 'Agendando...' : 'Agendar Serviço'}
-          </button>
-        </form>
-
-        {showCalendar && formData.date && (
-          <div className="calendar-view">
-            <h3>Calendário de Horários - {new Date(formData.date).toLocaleDateString('pt-BR')}</h3>
-            <div className="calendar-grid">
-              {Array.from({ length: 18 }, (_, i) => {
-                const hour = 9 + Math.floor(i / 2);
-                const minute = i % 2 === 0 ? '00' : '30';
-                const timeSlot = `${hour.toString().padStart(2, '0')}:${minute}`;
-                const isAvailable = availableSlots.includes(timeSlot);
-                const isBooked = bookedSlots.includes(timeSlot);
-                
-                return (
-                  <div 
-                    key={timeSlot} 
-                    className={`calendar-slot ${isAvailable ? 'available' : 'booked'}`}
-                  >
-                    <span className="slot-time">{timeSlot}</span>
-                    <span className="slot-status">
-                      {isAvailable ? 'Disponível' : 'Ocupado'}
-                    </span>
-                  </div>
-                );
-              })}
-            </div>
-            <div className="calendar-legend">
-              <div className="legend-item">
-                <div className="legend-color available"></div>
-                <span>Disponível</span>
-              </div>
-              <div className="legend-item">
-                <div className="legend-color booked"></div>
-                <span>Ocupado</span>
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
-    </div>
-  );
-};
+    <footer className="prime-footer" aria-label="Footer">
+      <a className="prime-logo" href="#inicio" aria-label="Voltar ao início">
+        <span className="logo-mark" aria-hidden="true">P</span>
+        <span>Barbearia <strong>Prime</strong></span>
+      </a>
+      <p>Cotia, São Paulo</p>
+      <a href={whatsappLink} target="_blank" rel="noreferrer">Falar no WhatsApp</a>
+    </footer>
+  </div>
+);
 
 export default Cliente;

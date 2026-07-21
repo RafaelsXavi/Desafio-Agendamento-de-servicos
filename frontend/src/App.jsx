@@ -3,14 +3,12 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Cliente from './pages/Cliente/Cliente';
 import AdminLogin from './pages/Admin/AdminLogin';
 import AdminDashboard from './pages/Admin/AdminDashboard';
-import ConnectionStatus from './components/ConnectionStatus/ConnectionStatus';
 import './styles/App.css';
 
 function App() {
   return (
     <Router>
       <div className="App">
-        <ConnectionStatus />
         <Routes>
           <Route path="/" element={<Cliente />} />
           <Route path="/admin/login" element={<AdminLogin />} />

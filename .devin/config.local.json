@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Exec(mkdir backend)"
+      "Exec(mkdir backend)",
+      "Exec(git add)"
     ]
   }
 }
